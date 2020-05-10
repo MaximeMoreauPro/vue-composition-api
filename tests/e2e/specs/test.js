@@ -1,8 +1,10 @@
 // https://docs.cypress.io/api/introduction/api.html
 
-describe('My First Test', () => {
-  it('Visits the app root url', () => {
+describe('Bookstore', () => {
+  it('Should contain 15 books', () => {
     cy.visit('/')
-    cy.contains('h1', 'Welcome to Your Vue.js + TypeScript App')
+
+    // Title should be '15 results'
+    cy.contains('.books-result > h1', '15 results')
   })
 })
