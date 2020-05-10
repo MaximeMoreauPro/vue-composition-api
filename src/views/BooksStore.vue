@@ -37,8 +37,8 @@
         <el-container class="books-result" direction="vertical">
 
           <div>
-            <span v-if="sortedBooks.length === 0">No Result</span>
-            <span v-else>{{ sortedBooks.length + ' result' + (sortedBooks.length > 1 ? 's' : '') }}</span>
+            <span class="title" v-if="sortedBooks.length === 0">No Result</span>
+            <span class="title" v-else>{{ sortedBooks.length + ' result' + (sortedBooks.length > 1 ? 's' : '') }}</span>
             <el-select class="sorting" v-model="selectedSorting" placeholder="Sort by">
               <el-option
                 v-for="sorting in availableSortings"

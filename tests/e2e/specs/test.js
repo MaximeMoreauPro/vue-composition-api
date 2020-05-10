@@ -5,6 +5,6 @@ describe('Bookstore', () => {
     cy.visit('/')
 
     // Title should be '15 results'
-    cy.contains('.books-result > h1', '15 results')
+    cy.contains('.books-result .title', '15 results')
   })
 })
