@@ -15,19 +15,20 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+### Run your tests (lint, unit, e2e-headless)
 ```
 npm run test
 ```
 
 ### Lints and fixes files
 ```
-npm run lint
+npm run test:lint
 ```
 
 ### Run your end-to-end tests
 ```
 npm run test:e2e
+npm run test:e2e-headless
 ```
 
 ### Run your unit tests

@@ -5,9 +5,9 @@ export const sortByRating = (books: Array<Book>): void => {
   books.sort((a, b) => b.rating - a.rating)
 }
 
-// Sorts Books by decreasing price
+// Sorts Books by increasing price
 export const sortByPrice = (books: Array<Book>): void => {
-  books.sort((a, b) => b.price - a.price)
+  books.sort((a, b) => a.price - b.price)
 }
 
 // Sorts Books by decreasing release year

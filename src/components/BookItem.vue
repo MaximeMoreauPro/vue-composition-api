@@ -1,22 +1,23 @@
 <template functional>
-  <div class="book-item" :title="'\t' + props.book.title + ':\n' + props.book.subtitle">
+  <div class="book-item" :class="[props.displayMode]" :title="'\t' + props.book.title + ':\n' + props.book.subtitle">
 
+    <!-- Cart actions button and icon are displayed only in Books Store mode -->
     <div class="header">
       <template v-if="props.book.quantity > 0" >
         <!-- Add to Cart / Remove from Cart button -->
         <el-button
           class="cart-action-button"
-          @click="listeners['cart-action']()"
           :title="props.book.isPicked ? 'Remove this Book from the Cart' : 'Add this Book to the Cart'"
           :type="props.book.isPicked ? 'danger' : 'success'"
-          :icon="props.book.isPicked ? 'el-icon-delete' : 'el-icon-goods'"
+          :icon="props.book.isPicked ? 'el-icon-delete' : 'el-icon-shopping-cart-2'"
           :plain="!props.book.isPicked"
           :size="props.book.isPicked ? 'mini' : 'medium'"
+          @click="listeners['pick-items'](props.book.isPicked ? 0 : 1)"
         >
           {{ props.book.isPicked ? 'Remove from Cart' : 'Add to Cart' }}
         </el-button>
 
-        <i v-if="props.book.isPicked" class="is-picked-icon el-icon-s-goods"></i>
+        <i v-if="props.book.isPicked && props.displayMode !== 'cart-mode'" class="is-picked-icon el-icon-shopping-cart-2"></i>
       </template>
     </div>
 
@@ -61,6 +62,17 @@
 
       <!-- Formatted price -->
       <div class="price">{{ props.book.price | currency }}</div>
+
+      <el-input-number
+        v-if="props.displayMode === 'cart-mode'"
+        :value="props.book.pickedQuantity"
+        :min="1"
+        :max="props.book.quantity"
+        :title="'only ' + props.book.quantity + ' item' + (props.book.quantity > 1 ? 's' : '') + ' left'"
+        controls-position="right"
+        @change="val => listeners['pick-items'](val)"
+      />
+
     </div>
 
   </div>
@@ -69,14 +81,17 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import PickableBook from '../models/PickableBook'
+import PickedBook from '../models/PickedBook'
+import displayMode from './displayMode.mixin'
 
 export default Vue.extend({
   name: 'BookItem',
 
+  mixins: [displayMode],
+
   props: {
     book: {
-      type: Object as () => PickableBook,
+      type: Object as () => PickedBook,
       required: true
     }
   }
@@ -143,8 +158,8 @@ export default Vue.extend({
   .book-infos {
     margin: 15px 5px;
 
-    .title {
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+    .authors {
+      font-size: 14px;
     }
 
     .rate {
@@ -167,15 +182,9 @@ export default Vue.extend({
     }
 
     .cover {
-      width: 100%;
-
       &.is-blured {
         filter: blur(0);
       }
-    }
-
-    .message {
-      font-size: 34px;
     }
   }
 
