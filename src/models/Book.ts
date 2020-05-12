@@ -11,6 +11,7 @@ export default interface Book {
   // Rating on 5 (int)
   rating: number;
   quantity: number;
+  pickedQuantity: number;
   subtitle: string;
   publisher: string;
   pages: number;

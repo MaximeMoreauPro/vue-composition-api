@@ -15,7 +15,7 @@
 
 import Vue from 'vue'
 import BookItem from './BookItem.vue'
-import PickedBook from '../models/PickableBook'
+import Book from '../models/Book'
 import displayMode from './displayMode.mixin'
 
 export default Vue.extend({
@@ -27,7 +27,7 @@ export default Vue.extend({
 
   props: {
     books: {
-      type: Array as () => Array<PickedBook>,
+      type: Array as () => Book[],
       required: true
     }
   }

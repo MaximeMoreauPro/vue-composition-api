@@ -36,11 +36,11 @@
 
 import { defineComponent } from '@vue/composition-api'
 import BooksContainer from '@/components/BooksContainer.vue'
-import PickedBook from '@/models/PickableBook'
+import Book from '@/models/Book'
 import useCart from '../features/useCart'
 
 interface Data {
-  pickedBooks: Array<PickedBook>;
+  pickedBooks: Book[];
 }
 export default defineComponent({
   name: 'Cart',

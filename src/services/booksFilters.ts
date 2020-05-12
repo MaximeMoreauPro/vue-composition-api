@@ -1,7 +1,7 @@
 import Book from '@/models/Book'
 
 // Filters Books by key words
-export const keywordsFilter = (books: Array<Book>, keywordsQuery: string, matchAll: boolean): Array<Book> => {
+export const keywordsFilter = (books: Book[], keywordsQuery: string, matchAll: boolean): Book[] => {
   if (keywordsQuery) {
     const keywords: Array<string> = keywordsQuery.toLowerCase().replace(/\s+/g, ' ').split(' ')
 
@@ -16,21 +16,21 @@ export const keywordsFilter = (books: Array<Book>, keywordsQuery: string, matchA
 }
 
 // Filters Books by price (between or equals min and max)
-export const priceFilter = (books: Array<Book>, minPrice: number, maxPrice: number): Array<Book> =>
+export const priceFilter = (books: Book[], minPrice: number, maxPrice: number): Book[] =>
   books.filter(({ price }) => price >= minPrice && price <= maxPrice)
 
 // Filters Books by release year (between or equals min and max)
-export const yearFilter = (books: Array<Book>, minYear: number, maxYear: number): Array<Book> =>
+export const yearFilter = (books: Book[], minYear: number, maxYear: number): Book[] =>
   books.filter(({ year }) => year >= minYear && year <= maxYear)
 
 // Filters Books by ratings (equals or superior to minRating)
-export const ratingFilter = (books: Array<Book>, minRating: number): Array<Book> =>
+export const ratingFilter = (books: Book[], minRating: number): Book[] =>
   books.filter(({ rating }) => rating >= minRating)
 
 // Filters Books by number of pages (between or equals min and max)
-export const pagesFilter = (books: Array<Book>, minPages: number, maxPages: number): Array<Book> =>
+export const pagesFilter = (books: Book[], minPages: number, maxPages: number): Book[] =>
   books.filter(({ pages }) => pages >= minPages && pages <= maxPages)
 
 // Filters Books by available status
-export const availableFilter = (books: Array<Book>) =>
+export const availableFilter = (books: Book[]): Book[] =>
   books.filter(({ quantity }) => quantity > 0)

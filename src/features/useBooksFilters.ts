@@ -3,7 +3,7 @@ import Book from '@/models/Book'
 import { keywordsFilter, availableFilter, ratingFilter } from '@/services/booksFilters'
 
 // Keyword filter logic
-function useKeywordsFilter (books: Array<Book>) {
+function useKeywordsFilter (books: Book[]) {
   const data = reactive({ keywordsQuery: '', matchAll: false })
 
   const keywordsMatchedBooks = computed(() => keywordsFilter(books, data.keywordsQuery, data.matchAll))
@@ -15,7 +15,7 @@ function useKeywordsFilter (books: Array<Book>) {
 }
 
 // Available filter logic
-function useAvailableFilter (books: Array<Book>) {
+function useAvailableFilter (books: Book[]) {
   const data = reactive({ displayUnavailableBook: true })
 
   const availableBooks = computed(() => data.displayUnavailableBook ? books : availableFilter(books))
@@ -27,7 +27,7 @@ function useAvailableFilter (books: Array<Book>) {
 }
 
 // Rating filter logic
-function useRatingFilter (books: Array<Book>) {
+function useRatingFilter (books: Book[]) {
   const data = reactive({ minRating: 0 })
 
   const minRatingBooks = computed(() => ratingFilter(books, data.minRating))
@@ -39,7 +39,7 @@ function useRatingFilter (books: Array<Book>) {
 }
 
 // Provides books filters feature
-export default function (books: Array<Book>) {
+export default function (books: Book[]) {
   const { keywordsMatchedBooks, keywordsQuery, matchAll } = useKeywordsFilter(books)
   const { availableBooks, displayUnavailableBook } = useAvailableFilter(books)
   const { minRatingBooks, minRating } = useRatingFilter(books)

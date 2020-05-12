@@ -7,17 +7,17 @@
         <!-- Add to Cart / Remove from Cart button -->
         <el-button
           class="cart-action-button"
-          :title="props.book.isPicked ? 'Remove this Book from the Cart' : 'Add this Book to the Cart'"
-          :type="props.book.isPicked ? 'danger' : 'success'"
-          :icon="props.book.isPicked ? 'el-icon-delete' : 'el-icon-shopping-cart-2'"
-          :plain="!props.book.isPicked"
-          :size="props.book.isPicked ? 'mini' : 'medium'"
-          @click="listeners['pick-items'](props.book.isPicked ? 0 : 1)"
+          :title="props.book.pickedQuantity ? 'Remove this Book from the Cart' : 'Add this Book to the Cart'"
+          :type="props.book.pickedQuantity ? 'danger' : 'success'"
+          :icon="props.book.pickedQuantity ? 'el-icon-delete' : 'el-icon-shopping-cart-2'"
+          :plain="!props.book.pickedQuantity"
+          :size="props.book.pickedQuantity ? 'mini' : 'medium'"
+          @click="listeners['pick-items'](props.book.pickedQuantity ? 0 : 1)"
         >
-          {{ props.book.isPicked ? 'Remove from Cart' : 'Add to Cart' }}
+          {{ props.book.pickedQuantity ? 'Remove from Cart' : 'Add to Cart' }}
         </el-button>
 
-        <i v-if="props.book.isPicked && props.displayMode !== 'cart-mode'" class="is-picked-icon el-icon-shopping-cart-2"></i>
+        <i v-if="props.book.pickedQuantity && props.displayMode !== 'cart-mode'" class="is-picked-icon el-icon-shopping-cart-2"></i>
       </template>
     </div>
 
@@ -81,7 +81,7 @@
 <script lang="ts">
 
 import Vue from 'vue'
-import PickedBook from '../models/PickedBook'
+import Book from '../models/Book'
 import displayMode from './displayMode.mixin'
 
 export default Vue.extend({
@@ -91,7 +91,7 @@ export default Vue.extend({
 
   props: {
     book: {
-      type: Object as () => PickedBook,
+      type: Object as () => Book,
       required: true
     }
   }

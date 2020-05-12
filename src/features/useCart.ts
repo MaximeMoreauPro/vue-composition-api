@@ -1,11 +1,11 @@
 import store from '@/store'
-import PickableBook from '@/models/PickableBook'
+import Book from '@/models/Book'
 import { computed } from '@vue/composition-api'
 import { totalCost } from '@/services/bookServices'
 
 // Provides cart features
 function useCart () {
-  function onPickItems (book: PickableBook, nbItem: number) {
+  function onPickItems (book: Book, nbItem: number) {
     if (nbItem === 0) {
       store.dispatch('removeBook', book)
     } else {

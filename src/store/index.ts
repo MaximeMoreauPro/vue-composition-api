@@ -1,15 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Book from '@/models/Book'
-import PickedBook from '@/models/PickedBook'
 // Stubbed books TODO: implements a books API client service
 import stubbedBooks from '@/data/stubbed-books'
 
 Vue.use(Vuex)
 
 interface State {
-  allBooks: Array<Book>;
-  pickedBooks: Array<PickedBook>;
+  allBooks: Book[];
+  pickedBooks: Book[];
 }
 
 function getPickedBookFromStorage () {
@@ -20,7 +19,7 @@ function getPickedBookFromStorage () {
   }
 }
 
-function setPickedBookInStorage (pickedBooks: Array<PickedBook>) {
+function setPickedBookInStorage (pickedBooks: Book[]) {
   // TODO: persist only the isbn13 and pickedQuantity props value
   localStorage['vue-composition-api:pickedBooks'] = JSON.stringify(pickedBooks)
 }
@@ -31,7 +30,7 @@ export default new Vuex.Store<State>({
     pickedBooks: getPickedBookFromStorage()
   },
   mutations: {
-    pickBook (state, book: PickedBook) {
+    pickBook (state, book: Book) {
       if (!state.pickedBooks.includes(book)) {
         state.pickedBooks.push(book)
       }
@@ -41,15 +40,13 @@ export default new Vuex.Store<State>({
     }
   },
   actions: {
-    pickBook (context, { book, nbItem }: { book: PickedBook; nbItem: number }) {
+    pickBook (context, { book, nbItem }: { book: Book; nbItem: number }) {
       book.pickedQuantity = nbItem
-      book.isPicked = true
       context.commit('pickBook', book)
       setPickedBookInStorage(context.state.pickedBooks)
     },
-    removeBook (context, book: PickedBook) {
+    removeBook (context, book: Book) {
       book.pickedQuantity = 0
-      book.isPicked = false
       context.commit('removeBook', book.isbn13)
       setPickedBookInStorage(context.state.pickedBooks)
     }

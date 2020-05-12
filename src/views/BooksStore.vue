@@ -65,14 +65,13 @@
 
 import { defineComponent, reactive, toRefs } from '@vue/composition-api'
 import BooksContainer from '@/components/BooksContainer.vue'
-import PickableBook from '@/models/PickableBook'
 import useBooksFilters from '@/features/useBooksFilters'
 import useBooksSortings from '@/features/useBooksSortings'
 import useCart from '@/features/useCart'
 import Book from '../models/Book'
 
 interface Data {
-  books: Array<PickableBook>;
+  books: Book[];
 }
 export default defineComponent({
   name: 'BooksStore',
@@ -80,8 +79,7 @@ export default defineComponent({
   components: { BooksContainer },
 
   setup (props, context) {
-    // Transform Books into PickableBooks (unpicked by default)
-    const data = reactive({ books: context.root.$store.state.allBooks.map((b: Book) => ({ isPicked: false, ...b })) })
+    const data = reactive({ books: context.root.$store.state.allBooks })
 
     function goToMyCart () {
       context.root.$router.push({ path: '/my-cart' })
