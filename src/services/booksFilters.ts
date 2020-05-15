@@ -3,7 +3,10 @@ import Book from '@/models/Book'
 // Filters Books by key words
 export const keywordsFilter = (books: Book[], keywordsQuery: string, matchAll: boolean): Book[] => {
   if (keywordsQuery) {
-    const keywords: Array<string> = keywordsQuery.toLowerCase().replace(/\s+/g, ' ').split(' ')
+    const keywords: string[] = keywordsQuery.toLowerCase()
+                                            .replace(/\s+/g, ' ')
+                                            .split(' ')
+                                            .filter(s => !!s)
 
     return books.filter(({ isbn13, title, authors, subtitle, publisher, desc }) => {
       const searchableProps = isbn13.concat(title, authors, subtitle, publisher, desc).toLowerCase()
